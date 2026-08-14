@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enquire about livestock or crops from Sithole Agriculture & LiveStocks.">
+  <title>Enquire | Sithole Agriculture & LiveStocks</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body style="background-image: url(images/Corn\ harvesting.jpeg);" >
+
+
+  <header>
+    <p class="branding"><a href="index.html">Sithole Agriculture & LiveStocks</a></p>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Livestock & Crops</a></li>
+        <li><a href="enquiry.html" aria-current="page">Enquire</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <h1>Enquire</h1>
+    <p>Interested in buying livestock or crops, individually or in bulk? Fill in the form below and we'll get back to you.</p>
+
+    <!-- Form handling and validation are added in Part 3 -->
+    <form class="enquiry-form" action="#" method="post">
+
+      <p>
+        <label for="enquiry-name">Full Name</label><br>
+        <input type="text" id="enquiry-name" name="enquiry-name" required>
+      </p>
+
+      <p>
+        <label for="enquiry-email">Email Address</label><br>
+        <input type="email" id="enquiry-email" name="enquiry-email" required>
+      </p>
+
+      <p>
+        <label for="enquiry-phone">Phone Number</label><br>
+        <input type="tel" id="enquiry-phone" name="enquiry-phone">
+      </p>
+
+      <p>
+        <label for="enquiry-interest">I'm interested in</label><br>
+        <select id="enquiry-interest" name="enquiry-interest">
+          <option value="livestock">Livestock</option>
+          <option value="crops">Crops</option>
+          <option value="both">Both</option>
+          <option value="general">General enquiry</option>
+        </select>
+      </p>
+
+      <p>
+        <label for="enquiry-message">Message</label><br>
+        <textarea id="enquiry-message" name="enquiry-message" rows="5" required></textarea>
+      </p>
+
+      <p>
+        <button type="submit">Submit Enquiry</button>
+      </p>
+
+    </form>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Sithole Agriculture & LiveStocks(ST10527449). All rights reserved.</p>
+    <p>KwaZulu-Natal, South Africa</p>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
