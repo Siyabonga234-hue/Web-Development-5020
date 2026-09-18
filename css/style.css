@@ -1,0 +1,882 @@
+/* ==========================================================================
+   Sithole Agriculture & LiveStocks
+   External stylesheet — WEDE5020 Part 2: Designing the Visuals
+   Student: Njabulo Sithole (ST10527449)
+
+   CONTENTS
+   1.  CSS Reset
+   2.  Design Tokens (custom properties: colour scheme + type scale)
+   3.  Base Styles
+   4.  Typography
+   5.  Layout Containers
+   6.  Site Header & Navigation
+   7.  Hero
+   8.  Cards & Panels (CSS Grid)
+   9.  Media Sections (Flexbox)
+   10. Buttons & Links (pseudo-classes)
+   11. Forms
+   12. Maps
+   13. Site Footer
+   14. Responsive Design — Tablet  (max-width: 1024px)
+   15. Responsive Design — Mobile  (max-width: 640px)
+   16. Accessibility & Print
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. CSS RESET
+   Levels out the differing default styles browsers apply, so the design
+   starts from the same baseline in Chrome, Firefox, Edge and Safari.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote, dl, dd, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img,
+picture,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ==========================================================================
+   2. DESIGN TOKENS
+   Every colour and size lives here as a custom property. Because these are
+   declared on :root they cascade to every element on every page, so the whole
+   site can be re-themed by editing this one block — this is what keeps the
+   number of selectors below to a minimum.
+   ========================================================================== */
+
+:root {
+
+  /* --- Colour scheme: earthy green, terracotta accent, cream background ---
+     (as specified in the approved Website Project Proposal)               */
+  --colour-green-dark:    #2C4227;
+  --colour-green:         #3F5E3A;
+  --colour-green-light:   #6B8A61;
+  --colour-green-tint:    #E8EDE4;
+
+  --colour-terracotta:      #8A4B2D;
+  --colour-terracotta-dark: #6B3820;
+  --colour-terracotta-tint: #F2E4DA;
+
+  --colour-cream:         #FAF7F0;
+  --colour-cream-dark:    #F0E9DC;
+  --colour-white:         #FFFFFF;
+
+  --colour-text:          #2A2A24;
+  --colour-text-muted:    #5C5C52;
+  --colour-border:        #D9D2C4;
+
+  /* --- Typography ---
+     A sturdy serif for headings paired with a clean sans-serif for body
+     text, per the proposal. System font stacks are used so the site renders
+     identically with or without an internet connection.                   */
+  --font-heading: Georgia, "Times New Roman", "Nimbus Roman", serif;
+  --font-body:    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* --- Type scale (1.2 "minor third" ratio) ---
+     Each step is 1.2x the one below it, which keeps the heading sizes in
+     proportion to one another instead of being picked at random.          */
+  --text-sm:   0.833rem;   /* 13.3px */
+  --text-base: 1rem;       /* 16px   */
+  --text-lg:   1.2rem;     /* 19.2px */
+  --text-xl:   1.44rem;    /* 23.0px */
+  --text-2xl:  1.728rem;   /* 27.6px */
+  --text-3xl:  2.074rem;   /* 33.2px */
+  --text-4xl:  2.488rem;   /* 39.8px */
+
+  --line-height-tight: 1.2;
+  --line-height-base:  1.6;
+
+  /* --- Spacing scale (rem-based so it scales with the user's font size) - */
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+
+  /* --- Decorative --- */
+  --radius:      6px;
+  --radius-lg:   10px;
+  --shadow-sm:   0 1px 3px rgba(42, 42, 36, 0.12);
+  --shadow-md:   0 4px 12px rgba(42, 42, 36, 0.14);
+  --shadow-lg:   0 10px 28px rgba(42, 42, 36, 0.18);
+  --transition:  180ms ease-in-out;
+
+  /* --- Layout --- */
+  --container-width: 1140px;
+}
+
+
+/* ==========================================================================
+   3. BASE STYLES
+   Site-wide defaults for font family, size, colour and spacing.
+   ========================================================================== */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--line-height-base);
+  color: var(--colour-text);
+  background-color: var(--colour-cream);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;            /* pushes the footer to the bottom of short pages */
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* Decorative page background, used on the Enquiry and Contact pages.
+   This replaces the inline style="background-image: ..." attributes that
+   were on those two pages in Part 1. */
+.has-page-background {
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+
+.has-page-background--corn {
+  /* The cream layer sits on top of the photograph at high opacity, so the
+     image reads as a soft texture and the body text stays legible. */
+  background-image:
+    linear-gradient(rgba(250, 247, 240, 0.93), rgba(250, 247, 240, 0.96)),
+    url("../images/corn-harvest.jpg");
+}
+
+
+/* ==========================================================================
+   4. TYPOGRAPHY
+   ========================================================================== */
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--colour-green-dark);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-md);
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-xs);
+}
+
+p {
+  margin-bottom: var(--space-md);
+  max-width: 68ch;           /* comfortable reading line length */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--colour-green-dark);
+}
+
+/* Page titles get a short terracotta rule underneath them */
+.page-title {
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  border-bottom: 3px solid var(--colour-terracotta);
+}
+
+
+/* ==========================================================================
+   5. LAYOUT CONTAINERS
+   ========================================================================== */
+
+section {
+  margin-bottom: var(--space-2xl);
+}
+
+section:last-of-type {
+  margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   6. SITE HEADER & NAVIGATION
+   Flexbox places the branding on the left and the navigation on the right.
+   ========================================================================== */
+
+.site-header {
+  background-color: var(--colour-green-dark);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header__inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.branding {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--colour-cream);
+}
+
+.branding a:hover,
+.branding a:focus-visible {
+  color: var(--colour-terracotta-tint);
+}
+
+.site-nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.site-nav a {
+  display: block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--colour-cream);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* --- Navigation pseudo-classes --- */
+.site-nav a:hover {
+  background-color: var(--colour-green);
+  color: var(--colour-white);
+}
+
+.site-nav a:focus-visible {
+  outline: 2px solid var(--colour-terracotta-tint);
+  outline-offset: 2px;
+}
+
+.site-nav a:active {
+  background-color: var(--colour-terracotta);
+}
+
+/* Marks the page the visitor is currently on */
+.site-nav a[aria-current="page"] {
+  background-color: var(--colour-terracotta);
+  color: var(--colour-white);
+}
+
+
+/* ==========================================================================
+   7. HERO
+   The image is layered behind the text using CSS Grid stacking, so the
+   heading sits over the photograph without needing absolute positioning.
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  grid-template-areas: "stack";
+  margin-bottom: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero__image,
+.hero__content {
+  grid-area: stack;          /* both children occupy the same grid cell */
+}
+
+.hero__image {
+  width: 100%;
+  height: 26rem;
+  object-fit: cover;         /* crops the portrait photo to a wide banner */
+  object-position: center 60%;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: var(--space-xl);
+  background: linear-gradient(
+    to top,
+    rgba(44, 66, 39, 0.92) 0%,
+    rgba(44, 66, 39, 0.70) 45%,
+    rgba(44, 66, 39, 0.10) 100%
+  );
+}
+
+.hero__content h1 {
+  color: var(--colour-cream);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.hero__content p {
+  color: var(--colour-cream);
+  font-size: var(--text-lg);
+  max-width: 44ch;
+}
+
+
+/* ==========================================================================
+   8. CARDS & PANELS — CSS GRID
+   The three-column grid on larger screens collapses to one column on mobile
+   (see the responsive sections at the end of this stylesheet).
+   ========================================================================== */
+
+.highlights__grid,
+.mission-vision__grid,
+.contact-details__grid,
+.map-section__grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.highlights__grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mission-vision__grid,
+.contact-details__grid,
+.map-section__grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card,
+.panel,
+.location-card {
+  padding: var(--space-lg);
+  background-color: var(--colour-white);
+  border: 1px solid var(--colour-border);
+  border-top: 4px solid var(--colour-green);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* --- Card pseudo-class: lifts slightly on hover --- */
+.card:hover,
+.location-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.panel {
+  border-top-color: var(--colour-terracotta);
+}
+
+.location-card__address {
+  font-style: italic;
+  color: var(--colour-text-muted);
+}
+
+
+/* ==========================================================================
+   9. MEDIA SECTIONS — FLEXBOX
+   An image beside a block of text, alternating sides down the page.
+   ========================================================================== */
+
+.media-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;   /* image top lines up with the heading */
+  gap: var(--space-xl);
+}
+
+/* Flips the image to the opposite side for visual rhythm */
+.media-section--reverse {
+  flex-direction: row-reverse;
+}
+
+.media-section__image {
+  flex: 0 0 40%;
+  width: 40%;
+  max-height: 24rem;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.media-section__text {
+  flex: 1 1 auto;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+/* Terracotta bullet markers drawn in CSS */
+.feature-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  background-color: var(--colour-terracotta);
+  border-radius: 50%;
+}
+
+
+/* ==========================================================================
+   10. BUTTONS & LINKS
+   Interactive states are built with the :hover, :focus and :active
+   pseudo-classes.
+   ========================================================================== */
+
+.cta-button {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-xl);
+  background-color: var(--colour-terracotta);
+  color: var(--colour-white);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition),
+              transform var(--transition),
+              box-shadow var(--transition);
+}
+
+.cta-button:hover {
+  background-color: var(--colour-terracotta-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid var(--colour-green);
+  outline-offset: 3px;
+}
+
+.cta-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.text-link {
+  color: var(--colour-terracotta);
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.text-link:hover {
+  color: var(--colour-terracotta-dark);
+  border-bottom-color: currentColor;
+}
+
+.text-link:focus-visible {
+  outline: 2px solid var(--colour-green);
+  outline-offset: 2px;
+}
+
+.text-link:active {
+  color: var(--colour-green-dark);
+}
+
+.section-cta {
+  max-width: none;           /* overrides the 68ch reading width set on <p> */
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   11. FORMS
+   ========================================================================== */
+
+.form-panel {
+  padding: var(--space-xl);
+  background-color: var(--colour-white);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.site-form {
+  max-width: 34rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-lg);
+}
+
+.form-row label {
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--colour-green-dark);
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  width: 100%;
+  padding: var(--space-sm);
+  background-color: var(--colour-cream);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* --- Form field pseudo-classes --- */
+.form-row input:hover,
+.form-row select:hover,
+.form-row textarea:hover {
+  border-color: var(--colour-green-light);
+}
+
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--colour-green);
+  box-shadow: 0 0 0 3px var(--colour-green-tint);
+  background-color: var(--colour-white);
+}
+
+.form-row textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.form-row--actions {
+  margin-bottom: 0;
+  align-items: flex-start;
+}
+
+
+/* ==========================================================================
+   12. MAPS
+   ========================================================================== */
+
+.map-embed {
+  margin: 0;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 18rem;
+  border: 0;
+}
+
+.map-embed figcaption {
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--colour-green-tint);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--colour-green-dark);
+}
+
+
+/* ==========================================================================
+   13. SITE FOOTER
+   ========================================================================== */
+
+.site-footer {
+  flex-shrink: 0;
+  margin-top: var(--space-2xl);
+  padding: var(--space-xl) var(--space-lg);
+  background-color: var(--colour-green-dark);
+  color: var(--colour-cream);
+  text-align: center;
+  border-top: 4px solid var(--colour-terracotta);
+}
+
+.site-footer p {
+  max-width: none;
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-sm);
+}
+
+.site-footer p:last-child {
+  margin-bottom: 0;
+  color: var(--colour-green-light);
+}
+
+
+/* ==========================================================================
+   14. RESPONSIVE DESIGN — TABLET
+   Breakpoint: 1024px and below.
+   Multi-column grids reduce, and the layout tightens up.
+   ========================================================================== */
+
+@media screen and (max-width: 1024px) {
+
+  main {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* Three-column card grid becomes two columns */
+  .highlights__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Maps stack so each one stays large enough to read */
+  .map-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Headings step down one level on the type scale */
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-xl); }
+
+  .hero__image {
+    height: 22rem;
+  }
+
+  .media-section__image {
+    flex-basis: 45%;
+    width: 45%;
+  }
+
+  .site-header__inner {
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .branding {
+    font-size: var(--text-base);
+  }
+
+  /* Keeps multi-word links such as "Livestock & Crops" on a single line */
+  .site-nav a {
+    padding: var(--space-xs);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+}
+
+
+/* ==========================================================================
+   15. RESPONSIVE DESIGN — MOBILE
+   Breakpoint: 640px and below.
+   Every multi-column layout collapses to a single column, the navigation
+   wraps and centres, and font sizes reduce again.
+   ========================================================================== */
+
+@media screen and (max-width: 640px) {
+
+  main {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* --- Navigation stacks below the branding and centres --- */
+  .site-header {
+    position: static;        /* frees up vertical space on small screens */
+  }
+
+  .site-header__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .site-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+  }
+
+  .site-nav a {
+    padding: var(--space-xs);
+    font-size: 0.78rem;
+  }
+
+  /* --- All grids become a single column --- */
+  .highlights__grid,
+  .mission-vision__grid,
+  .contact-details__grid,
+  .map-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Media sections stack the image above the text --- */
+  .media-section,
+  .media-section--reverse {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .media-section__image {
+    flex-basis: auto;
+    width: 100%;
+    max-height: 16rem;
+  }
+
+  /* --- Type scale steps down again --- */
+  h1 { font-size: var(--text-2xl); }
+  h2 { font-size: var(--text-lg); }
+  h3 { font-size: var(--text-base); }
+
+  .hero__image {
+    height: 18rem;
+  }
+
+  .hero__content {
+    padding: var(--space-lg);
+  }
+
+  .hero__content p {
+    font-size: var(--text-base);
+  }
+
+  .form-panel {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .cta-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-row--actions {
+    align-items: stretch;
+  }
+
+  .map-embed iframe {
+    height: 14rem;
+  }
+}
+
+
+/* ==========================================================================
+   16. ACCESSIBILITY & PRINT
+   ========================================================================== */
+
+/* Lets keyboard users jump straight past the navigation to the content.
+   Hidden off-screen until it receives focus. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--colour-terracotta);
+  color: var(--colour-white);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Respects the operating system setting for users who find motion
+   uncomfortable. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .card:hover,
+  .location-card:hover,
+  .cta-button:hover {
+    transform: none;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .cta-button {
+    display: none;
+  }
+
+  body {
+    background: none;
+    color: #000;
+  }
+}

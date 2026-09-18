@@ -3,61 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The story, mission and vision behind Sithole Agriculture & LiveStocks, a family-founded farm in KwaZulu-Natal.">
-  <title>About Us | Sithole Agriculture & LiveStocks</title>
+  <meta name="description" content="The story, mission and vision behind Sithole Agriculture LiveStocks, a family-founded farm in KwaZulu-Natal.">
+  <title>About Us | Sithole Agriculture LiveStocks</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <header>
-    <p class="branding"><a href="index.html">Sithole Agriculture & LiveStocks</a></p>
-    <nav aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" aria-current="page">About Us</a></li>
-        <li><a href="products.html">Livestock & Crops</a></li>
-        <li><a href="enquiry.html">Enquire</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <p class="branding"><a href="index.html">Sithole Agriculture LiveStocks</a></p>
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" aria-current="page">About Us</a></li>
+          <li><a href="products.html">Livestock Crops</a></li>
+          <li><a href="enquiry.html">Enquire</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main id="main-content">
 
-    <h1>About Us</h1>
+    <h1 class="page-title">About Us</h1>
 
-    <section class="our-story">
-      <img src="images/Esibayeni.jpeg">
-      <h2>Our Story</h2>
-      <p><b>Sithole Agriculture & LiveStocks Inc founded by Sithole Njabulo in the year 2021, starting as a small farm of 1 hacture of only 2 cows, 4 goats and 10 chickens.
-            Which after 3-4 grow into a 20 hacture/ 200 000 square meters of fertile land in the KwaZule-Natal province, grow into a farm of 30 bruhman cows & 25 nguni cows,
-            30 nguni goats and over 80 chicken(broilers & layers) and a fully functioning Agricultural sites, that farmed corn/maize and potatoes
-            for verious organisations. After the initial founding, the farm went from a one man army to a 50 man well oiled working machine.
-        </b>    </p>
+    <section class="our-story media-section">
+      <img
+        class="media-section__image"
+        src="images/esibayeni-kraal.jpg"
+        srcset="images/esibayeni-kraal-360w.jpg 360w,
+                images/esibayeni-kraal-540w.jpg 540w,
+                images/esibayeni-kraal-720w.jpg 720w"
+        sizes="(max-width: 640px) 100vw, 45vw"
+        alt="Esibayeni, the cattle kraal at the Sithole family farm">
+      <div class="media-section__text">
+        <h2>Our Story</h2>
+        <p>Sithole Agriculture LiveStocks Inc founded by Sithole Njabulo in the year 2021, starting as a small farm of 1 hacture of only 2 cows, 4 goats and 10 chickens.
+          Which after 3-4 grow into a 20 hacture/ 200 000 square meters of fertile land in the KwaZule-Natal province, grow into a farm of 30 bruhman cows &amp; 25 nguni cows,
+          30 nguni goats and over 80 chicken(broilers layers) and a fully functioning Agricultural sites, that farmed corn/maize and potatoes
+          for verious organisations. After the initial founding, the farm went from a one man army to a 50 man well oiled working machine.
+        </p>
 
-        <p> <b>Mr Sithole build the farm from nothing but love of farming he got from working with his grandmother in her garden and watching vast open fields that went on for miles 
-            and miles filled with corn plantations and cows that he saw when he travel with his father and would ask his father who were the owners of all those farms and Sithole would always say that one day he would buy one big farm of his own
-            and name it after his family name SITHOLE, all at young age. So from that age the dream of being a farmer was deeply imberded in his mind and he made sure that
-            through dark and thin, hell and fires, he would be a farmer & a farm owner one day, and that dream was achieved in the year 2029 at the young age of 23 years old.
-        </b>    </p>
-
+        <p>Mr Sithole build the farm from nothing but love of farming he got from working with his grandmother in her garden and watching vast open fields that went on for miles
+          and miles filled with corn plantations and cows that he saw when he travel with his father and would ask his father who were the owners of all those farms and Sithole would always say that one day he would buy one big farm of his own
+          and name it after his family name SITHOLE, all at young age. So from that age the dream of being a farmer was deeply imberded in his mind and he made sure that
+          through dark and thin, hell and fires, he would be a farmer a farm owner one day, and that dream was achieved in the year 2029 at the young age of 23 years old.
+        </p>
+      </div>
     </section>
 
     <section class="mission-vision">
-      <h2>Mission</h2>
-      <p>To raise healthy, well-cared-for livestock and grow quality crops, combining traditional farming knowledge with modern best practice.</p>
+      <div class="mission-vision__grid">
+        <article class="panel">
+          <h2>Mission</h2>
+          <p>To raise healthy, well-cared-for livestock and grow quality crops, combining traditional farming knowledge with modern best practice.</p>
+        </article>
 
-      <h2>Vision</h2>
-      <p>To grow into a respected supplier of livestock and produce to the local community and other organisations across the region, 
-        creating local jobs as the farm expands. Building a farm built out of nothing love and dedication into on of the largest farms
-        across South Africa that will feed millions of homes foods that are locally grown with no chemicals.
-      </p>
+        <article class="panel">
+          <h2>Vision</h2>
+          <p>To grow into a respected supplier of livestock and produce to the local community and other organisations across the region,
+            creating local jobs as the farm expands. Building a farm built out of nothing love and dedication into on of the largest farms
+            across South Africa that will feed millions of homes foods that are locally grown with no chemicals.
+          </p>
+        </article>
+      </div>
     </section>
 
   </main>
 
-  <footer>
-    <p>&copy; 2026 Sithole Agriculture & LiveStocks(ST10527449). All rights reserved.</p>
+  <footer class="site-footer">
+    <p>&copy; 2026 Sithole Agriculture LiveStocks (ST10527449). All rights reserved.</p>
     <p>KwaZulu-Natal, South Africa</p>
   </footer>
 

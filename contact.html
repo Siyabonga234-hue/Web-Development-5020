@@ -3,74 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Sithole Agriculture & LiveStocks in KwaZulu-Natal.">
-  <title>Contact Us | Sithole Agriculture & LiveStocks</title>
+  <meta name="description" content="Contact Sithole Agriculture LiveStocks at our Limehill and Bergville farm locations in KwaZulu-Natal.">
+  <title>Contact Us | Sithole Agriculture LiveStocks</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-image: url(images/Corn\ harvesting.jpeg);" >
+<body class="has-page-background has-page-background--corn">
 
-  <header>
-    <p class="branding"><a href="index.html">Sithole Agriculture & LiveStocks</a></p>
-    <nav aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="products.html">Livestock & Crops</a></li>
-        <li><a href="enquiry.html">Enquire</a></li>
-        <li><a href="contact.html" aria-current="page">Contact</a></li>
-      </ul>
-    </nav>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <p class="branding"><a href="index.html">Sithole Agriculture LiveStocks</a></p>
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="products.html">Livestock Crops</a></li>
+          <li><a href="enquiry.html">Enquire</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main id="main-content">
 
-    <h1>Contact Us</h1>
+    <div class="form-panel">
 
-    <section class="contact-details">
-      <h2>Our Locations</h2>
-      <ul>
-        <li>
-          <strong>First Farm location:</strong> [Farm Mnambithi, Limehill], KwaZulu-Natal, South Africa<br>
-          Phone: [060 402 7620] & Email: [mondisetech@gmail.com]
-        </li>
-        <li>
-          <strong>Second Farm location:</strong> [Bergville], KwaZulu-Natal, South Africa<br>
-          Phone: [083 668 6689] & Email: [njabulosjebha@gmail.com]
-        </li>
-      </ul>
-    </section>
+      <h1>Contact Us</h1>
 
-    <section class="contact-form">
-      <h2>Send Us a Message</h2>
-      <!-- Form handling and validation are added in Part 3 -->
-      <form action="#" method="post">
+      <section class="contact-details">
+        <h2>Our Locations</h2>
+        <div class="contact-details__grid">
 
-        <p>
-          <label for="contact-name">Full Name</label><br>
-          <input type="text" id="contact-name" name="contact-name" required>
-        </p>
+          <article class="location-card">
+            <h3>First Farm Location</h3>
+            <p class="location-card__address">Mnambithi, Limehill<br>KwaZulu-Natal, South Africa</p>
+            <p>
+              Phone: <a href="tel:+27604027620" class="text-link">060 402 7620</a><br>
+              Email: <a href="mailto:mondisetech@gmail.com" class="text-link">mondisetech@gmail.com</a>
+            </p>
+          </article>
 
-        <p>
-          <label for="contact-email">Email Address</label><br>
-          <input type="email" id="contact-email" name="contact-email" required>
-        </p>
+          <article class="location-card">
+            <h3>Second Farm Location</h3>
+            <p class="location-card__address">Bergville<br>KwaZulu-Natal, South Africa</p>
+            <p>
+              Phone: <a href="tel:+27836686689" class="text-link">083 668 6689</a><br>
+              Email: <a href="mailto:njabulosjebha@gmail.com" class="text-link">njabulosjebha@gmail.com</a>
+            </p>
+          </article>
 
-        <p>
-          <label for="contact-message">Message</label><br>
-          <textarea id="contact-message" name="contact-message" rows="5" required></textarea>
-        </p>
+        </div>
+      </section>
 
-        <p>
-          <button type="submit">Send Message</button>
-        </p>
+      <section class="map-section">
+        <h2>Find Us</h2>
+        <div class="map-section__grid">
 
-      </form>
-    </section>
+          <figure class="map-embed">
+            <iframe
+              src="https://www.google.com/maps?q=Limehill,+KwaZulu-Natal,+South+Africa&amp;output=embed"
+              title="Map showing the Mnambithi, Limehill farm location"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <figcaption>Mnambithi, Limehill &mdash; KwaZulu-Natal</figcaption>
+          </figure>
+
+          <figure class="map-embed">
+            <iframe
+              src="https://www.google.com/maps?q=Bergville,+KwaZulu-Natal,+South+Africa&amp;output=embed"
+              title="Map showing the Bergville farm location"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <figcaption>Bergville &mdash; KwaZulu-Natal</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+      <section class="contact-form">
+        <h2>Send Us a Message</h2>
+        <!-- Form handling and validation are added in Part 3 -->
+        <form class="site-form" action="#" method="post">
+
+          <div class="form-row">
+            <label for="contact-name">Full Name</label>
+            <input type="text" id="contact-name" name="contact-name" required>
+          </div>
+
+          <div class="form-row">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" name="contact-email" required>
+          </div>
+
+          <div class="form-row">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="contact-message" rows="5" required></textarea>
+          </div>
+
+          <div class="form-row form-row--actions">
+            <button type="submit" class="cta-button">Send Message</button>
+          </div>
+
+        </form>
+      </section>
+
+    </div>
 
   </main>
 
-  <footer>
-    <p>&copy; 2026 Sithole Agriculture & LiveStocks(ST10527449). All rights reserved.</p>
+  <footer class="site-footer">
+    <p>&copy; 2026 Sithole Agriculture LiveStocks (ST10527449). All rights reserved.</p>
     <p>KwaZulu-Natal, South Africa</p>
   </footer>
 
