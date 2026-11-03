@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sithole Agriculture & LiveStocks
-   External stylesheet — WEDE5020 Part 2: Designing the Visuals
+   External stylesheet — WEDE5020 Part 2 (Designing the Visuals) + Part 3 additions
    Student: Njabulo Sithole (ST10527449)
 
    CONTENTS
@@ -20,6 +20,12 @@
    14. Responsive Design — Tablet  (max-width: 1024px)
    15. Responsive Design — Mobile  (max-width: 640px)
    16. Accessibility & Print
+   17. Part 3 — Interactive components (tabs, accordion, gallery, lightbox,
+       counters, call-to-action band, scroll animation)
+   18. Part 3 — Stock catalogue (search, filter, sort)
+   19. Part 3 — Forms: validation, responses, email preview
+   20. Part 3 — Contact map
+   21. Part 3 — Responsive rules for the new components
    ========================================================================== */
 
 
@@ -190,7 +196,7 @@ main {
      image reads as a soft texture and the body text stays legible. */
   background-image:
     linear-gradient(rgba(250, 247, 240, 0.93), rgba(250, 247, 240, 0.96)),
-    url("../images/corn-harvest.jpg");
+    url("../images/corn-harvest-540w.jpg");
 }
 
 
@@ -880,3 +886,818 @@ section:last-of-type {
     color: #000;
   }
 }
+
+
+/* ==========================================================================
+   PART 3 ADDITIONS
+   Everything below styles the new JavaScript features. It only uses the
+   colour, type and spacing tokens from section 2, so the earthy green /
+   terracotta / cream look stays consistent with Parts 1 and 2.
+   ========================================================================== */
+
+:root {
+  /* Error colours: a red that is clearly different from the terracotta accent */
+  --colour-error:      #A12622;
+  --colour-error-tint: #FBEDEC;
+}
+
+/* The HTML "hidden" attribute must always win, even over display: grid / flex below */
+[hidden] { display: none !important; }
+
+
+/* ==========================================================================
+   17. INTERACTIVE COMPONENTS
+   ========================================================================== */
+
+/* --- Extra button styles (the main .cta-button is unchanged) --- */
+.button-outline,
+.button-solid {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  border: 2px solid var(--colour-green);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.button-outline {
+  background-color: transparent;
+  color: var(--colour-green-dark);
+}
+
+.button-outline:hover,
+.button-outline:focus-visible {
+  background-color: var(--colour-green-tint);
+}
+
+.button-solid {
+  background-color: var(--colour-green);
+  color: var(--colour-white);
+}
+
+.button-solid:hover,
+.button-solid:focus-visible {
+  background-color: var(--colour-green-dark);
+  border-color: var(--colour-green-dark);
+}
+
+.button-outline:active,
+.button-solid:active { transform: scale(0.98); }
+
+.button-outline:focus-visible,
+.button-solid:focus-visible {
+  outline: 3px solid var(--colour-terracotta);
+  outline-offset: 2px;
+}
+
+button[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+/* --- Footer navigation: every page links to every other page --- */
+.footer-nav { margin-bottom: var(--space-md); }
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-lg);
+}
+
+.footer-nav a {
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--colour-cream-dark);
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible { color: var(--colour-white); }
+
+/* --- Call-to-action band --- */
+.cta-band {
+  padding: var(--space-xl) var(--space-lg);
+  background-color: var(--colour-green-dark);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.cta-band h2 { color: var(--colour-cream); }
+
+.cta-band p {
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--colour-cream-dark);
+}
+
+.cta-band a.text-link { color: var(--colour-white); }
+
+/* --- Animations --- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero__content { animation: fade-up 0.9s ease both; }
+
+/* Scroll reveal: script.js adds .is-visible as a section enters the screen.
+   Sections are only hidden once script.js has confirmed it is running. */
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- The Farm in Numbers --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.stat {
+  padding: var(--space-lg);
+  text-align: center;
+  background-color: var(--colour-green-tint);
+  border-radius: var(--radius);
+  border-bottom: 4px solid var(--colour-terracotta);
+}
+
+.stat__number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--colour-green-dark);
+}
+
+.stat__label {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--colour-text-muted);
+}
+
+/* --- Tabs: the tab buttons only appear when JavaScript is running --- */
+.tabs [role="tablist"] { display: none; }
+
+.js .tabs [role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.tabs [role="tab"] {
+  padding: var(--space-xs) var(--space-lg);
+  border: 2px solid var(--colour-green);
+  border-radius: 999px;
+  background-color: var(--colour-white);
+  color: var(--colour-green-dark);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.tabs [role="tab"]:hover { background-color: var(--colour-green-tint); }
+
+.tabs [role="tab"][aria-selected="true"] {
+  background-color: var(--colour-green-dark);
+  border-color: var(--colour-green-dark);
+  color: var(--colour-white);
+}
+
+.tabs [role="tab"]:focus-visible {
+  outline: 3px solid var(--colour-terracotta);
+  outline-offset: 2px;
+}
+
+.tab-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-lg);
+  background-color: var(--colour-white);
+  border: 1px solid var(--colour-border);
+  border-top: 4px solid var(--colour-green);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-panel + .tab-panel { margin-top: var(--space-lg); }
+.js .tab-panel.is-active { animation: fade-up 0.4s ease both; }
+
+.tab-panel img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* --- Accordion: all answers stay visible if JavaScript is off --- */
+.accordion { display: grid; gap: var(--space-xs); }
+
+.accordion__item {
+  background-color: var(--colour-white);
+  border: 1px solid var(--colour-border);
+  border-left: 4px solid var(--colour-terracotta);
+  border-radius: var(--radius);
+}
+
+.accordion__item h3 { margin: 0; font-size: var(--text-base); }
+
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-align: left;
+  color: var(--colour-green-dark);
+}
+
+.accordion__trigger:hover { background-color: var(--colour-green-tint); }
+
+.accordion__trigger:focus-visible {
+  outline: 3px solid var(--colour-terracotta);
+  outline-offset: -3px;
+}
+
+.js .accordion__trigger::after {
+  content: "+";
+  flex-shrink: 0;
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--colour-terracotta);
+}
+
+.js .accordion__trigger[aria-expanded="true"]::after { content: "\2212"; }
+
+.accordion__inner p { padding: 0 var(--space-lg) var(--space-lg); max-width: none; }
+
+.js .accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.js .accordion__panel.is-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 0.3s ease, visibility 0s;
+}
+
+.js .accordion__inner { overflow: hidden; }
+
+/* --- Gallery --- */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--space-md);
+}
+
+.gallery__item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  background-color: var(--colour-green-tint);
+  box-shadow: var(--shadow-sm);
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gallery__item:hover img,
+.gallery__item:focus-visible img { transform: scale(1.07); }
+
+.gallery__item:focus-visible {
+  outline: 3px solid var(--colour-terracotta);
+  outline-offset: 2px;
+}
+
+.gallery__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--space-lg) var(--space-sm) var(--space-sm);
+  background: linear-gradient(0deg, rgba(44, 66, 39, 0.92), transparent);
+  color: var(--colour-cream);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.gallery__item:hover .gallery__caption,
+.gallery__item:focus-visible .gallery__caption { opacity: 1; }
+
+/* --- Lightbox (built by js/lightbox.js on a native <dialog>) --- */
+body.lightbox-open { overflow: hidden; }
+
+.lightbox {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.lightbox::backdrop { background-color: rgba(24, 38, 21, 0.93); }
+
+.lightbox-figure {
+  position: absolute;
+  inset: 4rem 5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: calc(100vh - 10rem);
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox-figure figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-lg);
+  color: var(--colour-cream);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.lightbox-counter { color: var(--colour-green-tint); }
+
+.lightbox-btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--colour-white);
+  font-size: 1.9rem;
+  line-height: 1;
+  transition: background-color var(--transition);
+}
+
+.lightbox-btn:hover,
+.lightbox-btn:focus-visible { background-color: rgba(255, 255, 255, 0.3); }
+
+.lightbox-close { top: var(--space-md); right: var(--space-md); }
+.lightbox-prev  { top: 50%; left: var(--space-md); transform: translateY(-50%); }
+.lightbox-next  { top: 50%; right: var(--space-md); transform: translateY(-50%); }
+
+
+/* ==========================================================================
+   18. STOCK CATALOGUE
+   ========================================================================== */
+.catalogue-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: var(--space-md);
+  align-items: end;
+  margin: var(--space-lg) 0 var(--space-md);
+  padding: var(--space-lg);
+  background-color: var(--colour-green-tint);
+  border-radius: var(--radius);
+}
+
+.catalogue-filters .form-row { margin-bottom: 0; }
+.catalogue-filters .button-outline { margin-bottom: 2px; padding: var(--space-sm) var(--space-md); }
+
+.result-count {
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-sm);
+  color: var(--colour-text-muted);
+}
+
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-lg);
+}
+
+.catalogue-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.catalogue-card__image-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--colour-cream-dark);
+}
+
+.catalogue-card__image-link img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.catalogue-card__image-link:hover img,
+.catalogue-card__image-link:focus-visible img { transform: scale(1.05); }
+
+.catalogue-card__image-link:focus-visible {
+  outline: 3px solid var(--colour-terracotta);
+  outline-offset: -3px;
+}
+
+.catalogue-card__zoom {
+  position: absolute;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+  padding: 0.15rem var(--space-sm);
+  border-radius: 999px;
+  background-color: rgba(44, 66, 39, 0.9);
+  color: var(--colour-white);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.catalogue-card__image-link:hover .catalogue-card__zoom,
+.catalogue-card__image-link:focus-visible .catalogue-card__zoom { opacity: 1; }
+
+.catalogue-card__band {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--colour-green-dark);
+  background-color: var(--colour-green-tint);
+}
+
+.catalogue-card__band--crops {
+  color: var(--colour-terracotta-dark);
+  background-color: var(--colour-terracotta-tint);
+}
+
+.catalogue-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-lg);
+}
+
+.catalogue-card__category {
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--colour-terracotta);
+}
+
+.catalogue-card__meta {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--colour-green-dark);
+}
+
+.catalogue-card__body p:last-child { margin-top: auto; }
+
+.no-results {
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+  border: 2px dashed var(--colour-border);
+  border-radius: var(--radius);
+}
+
+.no-results p { margin: 0 auto var(--space-md); }
+
+
+/* ==========================================================================
+   19. FORMS: VALIDATION, RESPONSES, EMAIL PREVIEW
+   ========================================================================== */
+fieldset.form-row {
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+}
+
+.form-row legend {
+  margin-bottom: var(--space-xs);
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--colour-green-dark);
+}
+
+.required { color: var(--colour-error); }
+
+.field-hint {
+  min-height: 1.4em;
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-sm);
+  color: var(--colour-text-muted);
+}
+
+.form-row label .field-hint {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+/* Radio buttons and checkboxes */
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-lg);
+}
+
+.form-row .choice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--colour-text);
+}
+
+.form-row .choice input {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  accent-color: var(--colour-green);
+}
+
+.form-row .choice--consent { align-items: flex-start; }
+
+.char-count {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-sm);
+  text-align: right;
+  color: var(--colour-text-muted);
+}
+
+.char-count.is-near-limit { font-weight: 600; color: var(--colour-error); }
+
+/* Error messages: colour + a "!" icon + text, so the message never relies on colour alone.
+   The line keeps its height when empty so the form never jumps while someone clicks. */
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  min-height: 1.5em;
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--colour-error);
+}
+
+.field-error:empty::before { display: none; }
+
+.field-error::before {
+  content: "!";
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background-color: var(--colour-error);
+  color: var(--colour-white);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+  border-color: var(--colour-error);
+  background-color: var(--colour-error-tint);
+}
+
+.form-summary {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 2px solid var(--colour-error);
+  border-radius: var(--radius);
+  background-color: var(--colour-error-tint);
+}
+
+.form-summary-title { font-weight: 700; color: var(--colour-error); }
+
+.form-summary ul {
+  margin-top: var(--space-xs);
+  padding-left: var(--space-lg);
+  list-style: disc;
+}
+
+.form-summary a { text-decoration: underline; color: var(--colour-error); }
+
+/* Spam-trap field: off-screen so people never see it, but form-filling bots do */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* The answer shown after a valid submit */
+.response-panel {
+  margin-top: var(--space-lg);
+  padding: var(--space-xl);
+  background-color: var(--colour-green-tint);
+  border-left: 4px solid var(--colour-green);
+  border-radius: var(--radius);
+}
+
+.response-panel:focus { outline: none; }
+.response-title { margin-bottom: var(--space-xs); }
+.response-intro { margin-bottom: var(--space-md); }
+.response-list { margin-bottom: var(--space-md); }
+
+.response-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--colour-border);
+}
+
+.response-row dt {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--colour-text-muted);
+}
+
+.response-row dd { margin: 0; }
+
+.availability { font-weight: 600; }
+.availability-in    { color: var(--colour-green-dark); }
+.availability-low   { color: var(--colour-terracotta-dark); }
+.availability-check { color: var(--colour-text); }
+
+.response-note {
+  font-size: var(--text-sm);
+  color: var(--colour-text-muted);
+}
+
+.response-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.response-actions .cta-button { padding: var(--space-sm) var(--space-lg); }
+.response-actions .button-outline { padding: var(--space-sm) var(--space-lg); }
+
+.send-status {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.send-sending { color: var(--colour-text-muted); }
+.send-sent    { color: var(--colour-green-dark); }
+.send-failed  { color: var(--colour-error); }
+
+.email-body {
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius);
+  background-color: var(--colour-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================================
+   20. CONTACT MAP
+   ========================================================================== */
+.map-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.farm-map {
+  height: 26rem;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  z-index: 0;
+}
+
+.map-status {
+  min-height: 1.5em;
+  margin-top: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--colour-text-muted);
+}
+
+.map-subheading { margin: var(--space-lg) 0 var(--space-md); }
+
+
+/* ==========================================================================
+   21. PART 3 RESPONSIVE RULES
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .catalogue-filters { grid-template-columns: 1fr 1fr; }
+  .catalogue-filters .form-row:first-child { grid-column: 1 / -1; }
+  .lightbox-figure { inset: 4rem 4rem 1.5rem; }
+}
+
+@media screen and (max-width: 640px) {
+
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+  .stat { padding: var(--space-md); }
+  .stat__number { font-size: var(--text-3xl); }
+
+  .tab-panel {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-md);
+  }
+
+  .tab-panel img { max-width: 14rem; margin: 0 auto; }
+
+  .accordion__trigger { padding: var(--space-md); font-size: var(--text-base); }
+
+  .catalogue-filters { grid-template-columns: 1fr; padding: var(--space-md); }
+
+  .response-panel { padding: var(--space-lg) var(--space-md); }
+  .response-row { grid-template-columns: 1fr; gap: 0; }
+  .response-actions .cta-button,
+  .response-actions .button-outline { width: 100%; text-align: center; }
+
+  .farm-map { height: 20rem; }
+  .map-controls .button-outline,
+  .map-controls .button-solid { flex: 1 1 45%; text-align: center; }
+
+  .lightbox-figure { inset: 4rem 0.5rem 5rem; }
+  .lightbox-prev,
+  .lightbox-next { top: auto; bottom: var(--space-md); transform: none; }
+  .lightbox-prev { left: calc(50% - 3.5rem); }
+  .lightbox-next { right: calc(50% - 3.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .reveal { opacity: 1; transform: none; }
+}
+
+@media print {
+  .footer-nav,
+  .map-controls,
+  .farm-map,
+  .catalogue-filters,
+  .cta-band { display: none; }
+}
+
+/* The error line under each field already reserves space, so the forms need less gap between rows */
+.site-form .form-row { margin-bottom: var(--space-xs); }
+.site-form .form-row--actions { margin-top: var(--space-md); margin-bottom: 0; }

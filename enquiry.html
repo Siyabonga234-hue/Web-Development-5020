@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Enquire about livestock or crops from Sithole Agriculture LiveStocks in KwaZulu-Natal.">
-  <title>Enquire | Sithole Agriculture LiveStocks</title>
+  <title>Enquire | Buy Livestock &amp; Crops in KwaZulu-Natal</title>
+  <meta name="description" content="Enquire about buying Nguni and Brahman cattle, goats, chickens, corn, potatoes or tomatoes from our KwaZulu-Natal farm. See availability straight away.">
+  <meta name="keywords" content="enquire livestock KwaZulu-Natal, buy cattle, buy goats, wholesale maize, buy potatoes, farm enquiry, Sithole Agriculture, livestock availability">
+  <meta name="author" content="Njabulo Sithole">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#2C4227">
+  <link rel="canonical" href="https://sithole-agriculture.netlify.app/enquiry.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sithole Agriculture &amp; LiveStocks">
+  <meta property="og:title" content="Enquire | Buy Livestock &amp; Crops in KwaZulu-Natal">
+  <meta property="og:description" content="Enquire about buying Nguni and Brahman cattle, goats, chickens, corn, potatoes or tomatoes from our KwaZulu-Natal farm. See availability straight away.">
+  <meta property="og:url" content="https://sithole-agriculture.netlify.app/enquiry.html">
+  <meta property="og:image" content="https://sithole-agriculture.netlify.app/images/cattle-herd.jpg">
+  <meta property="og:locale" content="en_ZA">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="has-page-background has-page-background--corn">
 
@@ -13,12 +30,12 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <p class="branding"><a href="index.html">Sithole Agriculture LiveStocks</a></p>
+      <p class="branding"><a href="index.html">Sithole Agriculture &amp; LiveStocks</a></p>
       <nav class="site-nav" aria-label="Main navigation">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="products.html">Livestock Crops</a></li>
+          <li><a href="products.html">Livestock &amp; Crops</a></li>
           <li><a href="enquiry.html" aria-current="page">Enquire</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -31,39 +48,110 @@
     <div class="form-panel">
 
       <h1>Enquire</h1>
-      <p>Interested in buying livestock or crops, individually or in bulk? Fill in the form below and we'll get back to you.</p>
+      <p>Interested in buying livestock or crops, individually or in bulk? Fill in the form below and you will see straight away whether it is available. We will also receive your enquiry and get back to you. Want to see what we have first? Browse our <a class="text-link" href="products.html#catalogue">livestock and crops</a>, or send a general message from the <a class="text-link" href="contact.html">contact page</a>.</p>
 
-      <!-- Form handling and validation are added in Part 3 -->
-      <form class="enquiry-form site-form" action="#" method="post">
+      <form id="enquiry-form" class="enquiry-form site-form" method="post"
+            action="https://formsubmit.co/mondisetech@gmail.com"
+            data-ajax-base="https://formsubmit.co/ajax/">
+        <p class="field-hint">Fields marked <span class="required" aria-hidden="true">*</span> are required.</p>
+        <div class="form-summary" role="alert" tabindex="-1" hidden></div>
 
-        <div class="form-row">
-          <label for="enquiry-name">Full Name</label>
-          <input type="text" id="enquiry-name" name="enquiry-name" required>
+        <input type="hidden" name="_subject" value="New enquiry from the Sithole Agriculture &amp; LiveStocks website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="hp-field" aria-hidden="true">
+          <label for="hp-field">Leave this field empty</label>
+          <input type="text" id="hp-field" name="_honey" tabindex="-1" autocomplete="off">
         </div>
 
-        <div class="form-row">
-          <label for="enquiry-email">Email Address</label>
-          <input type="email" id="enquiry-email" name="enquiry-email" required>
+        <div class="form-row" data-field="name">
+          <label for="enquiry-name">Full Name <span class="required" aria-hidden="true">*</span></label>
+          <input type="text" id="enquiry-name" name="name" required autocomplete="name" maxlength="60" aria-describedby="enquiry-name-error">
+          <p class="field-error" id="enquiry-name-error" data-error-for="name"></p>
         </div>
 
-        <div class="form-row">
-          <label for="enquiry-phone">Phone Number</label>
-          <input type="tel" id="enquiry-phone" name="enquiry-phone">
+        <div class="form-row" data-field="email">
+          <label for="enquiry-email">Email Address <span class="required" aria-hidden="true">*</span></label>
+          <input type="email" id="enquiry-email" name="email" required autocomplete="email" maxlength="100" aria-describedby="enquiry-email-error">
+          <p class="field-error" id="enquiry-email-error" data-error-for="email"></p>
         </div>
 
-        <div class="form-row">
-          <label for="enquiry-interest">I'm interested in</label>
-          <select id="enquiry-interest" name="enquiry-interest">
+        <div class="form-row" data-field="phone">
+          <label for="enquiry-phone">Phone Number <span class="field-hint">(optional)</span></label>
+          <input type="tel" id="enquiry-phone" name="phone" autocomplete="tel" maxlength="20" inputmode="tel" aria-describedby="enquiry-phone-error enquiry-phone-hint">
+          <p class="field-hint" id="enquiry-phone-hint">South African number, for example 060 402 7620. Required if you would like us to phone you.</p>
+          <p class="field-error" id="enquiry-phone-error" data-error-for="phone"></p>
+        </div>
+
+        <fieldset class="form-row" data-field="contactMethod" aria-describedby="enquiry-contactMethod-error">
+          <legend>How should we reply? <span class="required" aria-hidden="true">*</span></legend>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="contactMethod" value="email" id="enquiry-contactMethod-email" required> Email</label>
+            <label class="choice"><input type="radio" name="contactMethod" value="phone" id="enquiry-contactMethod-phone"> Phone call</label>
+          </div>
+          <p class="field-error" id="enquiry-contactMethod-error" data-error-for="contactMethod"></p>
+        </fieldset>
+
+        <fieldset class="form-row" data-field="buyerType" aria-describedby="enquiry-buyerType-error">
+          <legend>I am buying as <span class="required" aria-hidden="true">*</span></legend>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="buyerType" value="individual" id="enquiry-buyerType-individual" required> An individual</label>
+            <label class="choice"><input type="radio" name="buyerType" value="wholesale" id="enquiry-buyerType-wholesale"> A wholesale buyer (organisation or business)</label>
+          </div>
+          <p class="field-error" id="enquiry-buyerType-error" data-error-for="buyerType"></p>
+        </fieldset>
+
+        <div class="form-row" data-field="interest">
+          <label for="enquiry-interest">I'm interested in <span class="required" aria-hidden="true">*</span></label>
+          <select id="enquiry-interest" name="interest" required aria-describedby="enquiry-interest-error">
+            <option value="">Choose one&hellip;</option>
             <option value="livestock">Livestock</option>
             <option value="crops">Crops</option>
             <option value="both">Both</option>
             <option value="general">General enquiry</option>
           </select>
+          <p class="field-error" id="enquiry-interest-error" data-error-for="interest"></p>
         </div>
 
-        <div class="form-row">
-          <label for="enquiry-message">Message</label>
-          <textarea id="enquiry-message" name="enquiry-message" rows="5" required></textarea>
+        <div class="form-row" data-field="item">
+          <label for="enquiry-item">What exactly? <span class="required" aria-hidden="true">*</span></label>
+          <select id="enquiry-item" name="item" required aria-describedby="enquiry-item-error">
+            <option value="">Choose&hellip;</option>
+          </select>
+          <p class="field-error" id="enquiry-item-error" data-error-for="item"></p>
+        </div>
+
+        <div class="form-row" data-field="quantity">
+          <label for="enquiry-quantity"><span id="quantity-label-text">How many?</span> <span class="required" aria-hidden="true">*</span></label>
+          <input type="number" id="enquiry-quantity" name="quantity" min="1" step="1" value="1" inputmode="numeric" aria-describedby="enquiry-quantity-error quantity-hint">
+          <p class="field-hint" id="quantity-hint" aria-live="polite"></p>
+          <p class="field-error" id="enquiry-quantity-error" data-error-for="quantity"></p>
+        </div>
+        <div class="form-row" data-field="farm">
+          <label for="enquiry-farm">Which farm should reply? <span class="field-hint">(optional)</span></label>
+          <select id="enquiry-farm" name="farm" aria-describedby="enquiry-farm-error">
+            <option value="">No preference</option>
+          </select>
+          <p class="field-error" id="enquiry-farm-error" data-error-for="farm"></p>
+        </div>
+
+        <div class="form-row" data-field="neededBy">
+          <label for="enquiry-date">Needed by <span class="field-hint">(optional)</span></label>
+          <input type="date" id="enquiry-date" name="neededBy" aria-describedby="enquiry-date-error enquiry-date-hint">
+          <p class="field-hint" id="enquiry-date-hint">Pick a date from today up to a year ahead.</p>
+          <p class="field-error" id="enquiry-date-error" data-error-for="neededBy"></p>
+        </div>
+
+        <div class="form-row" data-field="message">
+          <label for="enquiry-message">Message <span class="required" aria-hidden="true">*</span></label>
+          <textarea id="enquiry-message" name="message" rows="5" required minlength="10" maxlength="500" aria-describedby="enquiry-message-error enquiry-message-count"></textarea>
+          <p class="char-count" id="enquiry-message-count" data-count-for="enquiry-message" aria-live="polite"></p>
+          <p class="field-error" id="enquiry-message-error" data-error-for="message"></p>
+        </div>
+
+        <div class="form-row" data-field="consent">
+          <label class="choice choice--consent" for="enquiry-consent"><input type="checkbox" id="enquiry-consent" name="consent" value="yes" required aria-describedby="enquiry-consent-error"> <span>I agree that Sithole Agriculture &amp; LiveStocks may contact me about this enquiry. <span class="required" aria-hidden="true">*</span></span></label>
+          <p class="field-error" id="enquiry-consent-error" data-error-for="consent"></p>
         </div>
 
         <div class="form-row form-row--actions">
@@ -72,15 +160,29 @@
 
       </form>
 
+      <section id="enquiry-response" class="response-panel" aria-live="polite" hidden></section>
+
     </div>
 
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 Sithole Agriculture LiveStocks (ST10527449). All rights reserved.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Livestock &amp; Crops</a></li>
+        <li><a href="enquiry.html">Enquire</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 Sithole Agriculture &amp; LiveStocks (ST10527449). All rights reserved.</p>
     <p>KwaZulu-Natal, South Africa</p>
   </footer>
 
+  <script src="js/farm-data.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/forms.js" defer></script>
   <script src="js/script.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+# Allow all search engines to crawl the whole site
+User-agent: *
+Allow: /
+
+# Tell crawlers where the sitemap is (update the domain after deploying)
+Sitemap: https://sithole-agriculture.netlify.app/sitemap.xml
